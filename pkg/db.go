@@ -30,6 +30,16 @@ func (dbc *DBController) Connect() (*gorm.DB, error) {
 	return db, err
 }
 
+func (dbc *DBController) Close() error {
+	sqlDb, err := dbc.DB.DB()
+	log.Printf("Attempting to close %s:%s", dbc.Config.Host, dbc.Config.Port)
+	if err != nil {
+		return err
+	}
+	err = sqlDb.Close()
+	return err
+}
+
 func (dbc *DBController) Migrate(model interface{}) error {
 	log.Printf("Migrating the table %v for db %s", model, dbc.Config.Name)
 	err := dbc.DB.AutoMigrate(model)
