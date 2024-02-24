@@ -1,4 +1,4 @@
-package lcdb
+package db
 
 import "log"
 
