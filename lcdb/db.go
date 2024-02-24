@@ -1,10 +1,11 @@
-package pkg
+package lcdb
 
 import (
 	"fmt"
-	"lcdb/config"
 	"log"
 	"sync"
+
+	"github.com/spoonbuoy/lcdb/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
