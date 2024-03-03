@@ -1,4 +1,4 @@
-module lcdb
+module github.com/SpoonBuoy/lcdb
 
 go 1.20
 
