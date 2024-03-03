@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "github.com/SpoonBuoy/lcdb/com";
+
+service Start {
+	rpc Start (Req) returns (Res);
+}
+
+message Req {
+	string ping = 1;
+}
+
+message Res {
+	string ping = 2;
+}

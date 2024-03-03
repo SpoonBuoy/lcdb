@@ -5,16 +5,14 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/spoonbuoy/lcdb/api"
 	"github.com/spoonbuoy/lcdb/clients"
+	"github.com/spoonbuoy/lcdb/db"
 )
 
 func main() {
 
 	initServices()
 	r := gin.Default()
-
-	api.InitRESTRoutes(r)
 
 	r.NoRoute(func(ctx *gin.Context) { ctx.JSON(http.StatusNotFound, gin.H{}) })
 
@@ -27,6 +25,15 @@ func main() {
 	fmt.Println("lcdb running")
 
 	r.Run(":8081")
+
+	condb := db.Database{}
+	redis := db.Cache{}
+
+	Pg, _ := condb.Connect()
+	Redis, _ := redis.Connect()
+
+	Pg.Close()
+	Redis.Close()
 	return
 }
 

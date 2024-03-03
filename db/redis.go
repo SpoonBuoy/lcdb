@@ -20,7 +20,7 @@ func initRedis() {
 	client = redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf(`%s, %s`, conf.Hostname, conf.Port),
 		Password: "", // no password set
-		DB:       0,  // use default DB
+		DB:       0,  // use default c
 	})
 
 	pong, err := client.Ping().Result()
@@ -33,4 +33,19 @@ func GetRedisClient() *redis.Client {
 		doOnce.Do(initRedis)
 	}
 	return client
+}
+
+type Cache struct {
+	Config config.RedisConfig
+}
+
+func (c *Cache) Connect() (Store, error) {
+	return c, nil
+}
+
+func (c *Cache) Close() error {
+	return nil
+}
+func (c *Cache) GetClient() error {
+	return nil
 }
